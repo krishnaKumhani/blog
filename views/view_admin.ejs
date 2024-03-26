@@ -1,0 +1,117 @@
+<%- include('header')%>
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive table--no-card m-b-30">
+                            <% if(locals.flash.success.length> 0 && locals.flash.success) { %>
+                                <div class="alert alert-success">
+                                    <%= locals.flash.success %>
+                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                </div>
+                                <% } %>
+                                    <% if(locals.flash.error.length> 0 && locals.flash.error) { %>
+                                        <div class="alert alert-danger">
+                                            <%= locals.flash.error %>
+                                        </div>
+                                        <% } %>
+
+                                            <form class="form-header mb-5">
+                                                <input class="au-input au-input--xl" type="text" name="search"
+                                                    placeholder="Search for name and Email" />
+                                                <button class="au-btn--submit" type="submit">
+                                                    <i class="zmdi zmdi-search"></i>
+                                                </button>
+                                            </form>
+
+                                            <table class="table table-borderless table-striped table-earning">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Gender</th>
+                                                        <th>Hobby</th>
+                                                        <th>City</th>
+                                                        <th>Message</th>
+                                                        <th>Image</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% var v=1 %>
+                                                        <%for(var ad of AdminData){%>
+                                                            <tr>
+                                                                <th>
+                                                                    <%= v++ %>
+                                                                </th>
+                                                                <th>
+                                                                    <%= ad.name %>
+                                                                </th>
+                                                                <th>
+                                                                    <%= ad.email %>
+                                                                </th>
+                                                                <th>
+                                                                    <%= ad.gender %>
+                                                                </th>
+                                                                <th>
+                                                                    <%= ad.hobby %>
+                                                                </th>
+                                                                <th>
+                                                                    <%= ad.city %>
+                                                                </th>
+                                                                <th>
+                                                                    <%= ad.message %>
+                                                                </th>
+                                                                <th>
+                                                                    <img src="<%= ad.image %>" height="100">
+                                                                </th>
+                                                                <th>
+                                                                    <a href="/admin/deleteAdmin/?id=<%=ad.id %>"><i
+                                                                            class="fa fa-trash"></i></a> ||
+
+                                                                    <a href="/admin/updateAdmin/?id=<%=ad.id%>">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                            <%}%>
+                                                </tbody>
+                                            </table>
+
+                        </div>
+
+                        <table>
+                            <tr align="text-center">
+                                <td colspan="9">
+                                    <%for(var i=0 ; i<totalpage;) {%>
+                                        <a href="?page=<%= i %>" class="btn btn-success">
+                                            <%= ++i %>
+                                        </a>
+                                        <% } %>
+                                </td>
+                            </tr>
+
+
+                            <tr align="text-center">
+                                <td colspan="9">
+                                    <% if(currentpage !=0){ %>
+                                        <a href="<%= parseInt (currentpage-1) %>" class="btn btn-success m-4">
+                                            Prev
+                                        </a>
+                                        <% } %>
+                                            <a href="<%= currentpage %>" class="btn btn-success m-4">
+                                                <%= parseInt(currentpage)+1 %>
+                                            </a>
+                                            <% var next=parseInt(currentpage)+1 %>
+                                                <% if(next !=totalpage) { %>
+                                                    <a href="<%= next %>" class="btn btn-success m-4">
+                                                        Next
+                                                    </a>
+                                                    <% } %>
+                                </td>
+                            </tr>
+                        </table>
+                        <%- include('footer')%>
